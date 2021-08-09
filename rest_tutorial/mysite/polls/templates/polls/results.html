@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Results for "{{ question.question_text }}"</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap" rel="stylesheet">
+</head>
+</head>
+<body>
+	<div class="main_container">
+	<fieldset>
+		<legend><h1>{{ question.question_text }}</h1></legend>
+		<div class="list_container">
+			<ul>
+			{% for choice in question.choice_set.all %}
+				<li class="list_item">{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</fieldset>
+	<a class="button large edit" href="{% url 'polls:detail' question.id %}">vote again?</a>
+	<a class="button large cancel" href="{% url 'polls:index' %}">go back</a>
+	</div>
+</body>
+</html>
