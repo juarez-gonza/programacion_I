@@ -1,0 +1,153 @@
+body, html, #root {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Raleway', sans-serif;
+}
+body {
+	background-color: #cce;
+}
+
+li {
+	list-style: none;
+}
+
+.navbar {
+	/* as a flex container */
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	width: 100%;
+	height: 8%;
+
+	position: absolute;
+	top: 0px;
+	padding-left: 8%;
+	margin: auto;
+
+	background-color: #1e0a60;
+	color: white;
+}
+
+.navbar .logo {
+	/* as a flex item with direction row */
+	display: inline-block;
+	width: 40%;
+	flex-basis: auto;
+
+	margin: auto;
+
+	font-weight: bold;
+}
+
+.navbar ul {
+	/* as a flex item with direction row */
+	display: inline-block;
+	flex-basis: auto;
+	width: 50%;
+	margin: auto;
+}
+
+.navbar ul li {
+	text-align: center;
+	margin: auto;
+}
+
+.cardContainer {
+	/* as a flex container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+	margin: auto;
+	margin-top: 10%;
+	width: 40%;
+}
+
+.card {
+	/* as flex items of direction: row */
+	width: 10rem;
+	flex-basis: auto;
+
+	padding: 0;
+
+	background-color: #cee;
+	text-align: center;
+
+	border-radius: 0.3rem;
+	border: 0px;
+	box-shadow: 3px 3px 2px #56486c;
+}
+
+.card:hover {
+	animation: shadow 0.2s;
+	animation-fill-mode: forwards;
+}
+
+.cardButtons {
+	/* as a flex container */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin: auto;
+}
+
+.cardButtons button {
+	/* as a flex item of direction column */
+	margin: 0.8rem;
+	border: 0px;
+	box-shadow: 1px 1px 1px #56486c;
+}
+
+.delete {
+	background-color: #ef0003;
+}
+
+.create {
+	background-color: #39d82b;
+}
+
+.edit {
+	background-color: #00bfd8;
+}
+
+.cardButtons button:hover {
+	animation: grow 0.1s;
+	animation-fill-mode: forwards;
+}
+
+.backdrop {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0.6;
+	background-color: rgba(0,0,0,0.6)
+}
+
+@keyframes shadow {
+	0% {
+		box-shadow: 3px 3px 2px #56486c;
+	}
+	50% {
+		box-shadow: 3px 3px 2px #373737;
+	}
+	100% {
+		box-shadow: 5px 5px 4px #373737;
+	}
+}
+
+@keyframes grow {
+	0% {
+		transform: scale(1);
+		box-shadow: 3px 3px 2px #56486c;
+	}
+	100% {
+		transform: scale(1.01);
+		box-shadow: 3px 3px 2px #373737;
+	}
+}
+
