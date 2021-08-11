@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import QuestionList from "./components/QuestionList";
 import Question from "./components/Question";
-import Modal from "./components/Modal";
+import Modal from "./layout/Modal";
 import Backdrop from "./layout/Backdrop";
 import Layout from "./layout/Layout";
 
