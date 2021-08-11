@@ -22,6 +22,7 @@ function EditForm(props)
 			{ ccomps }
 			</fieldset>
 			<button className="button large create">Or create a new choice!</button>
+			<button onClick={ props.onCancel } className="button large cancel">go back</button>
 		</div>
 	);
 }

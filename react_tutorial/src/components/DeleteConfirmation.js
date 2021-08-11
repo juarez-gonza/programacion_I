@@ -6,7 +6,7 @@ function DeleteConfirmation(props)
 		<div className="deleteConfirmation">
 			<h2>Delete question: "{ props.question.question_text }?"</h2>
 			<button className="button delete large">delete</button>
-			<button className="button cancel large">go back</button>
+			<button onClick={ props.onCancel } className="button cancel large">go back</button>
 		</div>
 
 	);
