@@ -6,8 +6,8 @@ function Question(props)
 			<div className="card">
 				<h3>{ props.q.question_text }</h3>
 				<div class="cardButtons">
-					<button className="edit">edit</button>
-					<button className="delete">delete</button>
+					<button onClick={ props.onEdit } className="button edit">edit</button>
+					<button onClick={ props.onDelete } className="button delete">delete</button>
 				</div>
 			</div>
 	);

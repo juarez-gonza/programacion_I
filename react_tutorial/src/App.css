@@ -1,13 +1,15 @@
 body, html, #root {
+	/* full window */
 	width: 100%;
 	height: 100%;
-	padding: 0;
-	margin: 0;
+	padding: 0px;
+	margin: 0px;
+
 	box-sizing: border-box;
 	font-family: 'Raleway', sans-serif;
 }
 body {
-	background-color: #cce;
+	background-color: #eee;
 }
 
 li {
@@ -22,19 +24,17 @@ li {
 	width: 100%;
 	height: 8%;
 
-	position: absolute;
-	top: 0px;
+	position: fixed;
 	padding-left: 8%;
-	margin: auto;
 
-	background-color: #1e0a60;
+	background-color: #0d7377;
 	color: white;
 }
 
 .navbar .logo {
 	/* as a flex item with direction row */
-	display: inline-block;
-	width: 40%;
+	display: block;
+	flex-grow: 2;
 	flex-basis: auto;
 
 	margin: auto;
@@ -44,15 +44,21 @@ li {
 
 .navbar ul {
 	/* as a flex item with direction row */
-	display: inline-block;
+	flex-grow: 8;
 	flex-basis: auto;
-	width: 50%;
 	margin: auto;
+
+	/* as a flex container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
 .navbar ul li {
+	/* as a flex item with direction row */
+	flex-shrink: 1;
+
 	text-align: center;
-	margin: auto;
 }
 
 .cardContainer {
@@ -60,26 +66,30 @@ li {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: center;
+	align-items: flex-start;
 
-	margin: auto;
-	margin-top: 10%;
+	position: relative;
 	width: 40%;
+
+	/* centering start */
+	margin: auto;
+
+	top: 40%;
+	/* centering end */
+
 }
 
 .card {
 	/* as flex items of direction: row */
-	width: 10rem;
-	flex-basis: auto;
-
-	padding: 0;
-
-	background-color: #cee;
-	text-align: center;
+	flex-basis: 33%;
 
 	border-radius: 0.3rem;
 	border: 0px;
 	box-shadow: 3px 3px 2px #56486c;
+
+	background-color: #cee;
+	text-align: center;
+	margin-right: 1rem;
 }
 
 .card:hover {
@@ -96,9 +106,56 @@ li {
 	margin: auto;
 }
 
-.cardButtons button {
-	/* as a flex item of direction column */
-	margin: 0.8rem;
+
+.choiceRow {
+	/* as flex container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	padding-bottom: 0.3rem;
+	margin-bottom: 0.5rem;
+	box-shadow: 0px 1px #ccc
+}
+
+.choicesContainer .choiceRow:last-child {
+	box-shadow: none;
+}
+
+/* span in choiceRow corresponds to choice text */
+.choiceRow span {
+	/* as a flex item of direction: row */
+	flex-basis: 60%;
+	font-style: italic;
+}
+
+.choiceRow div {
+	/* as a flex item of direction: row */
+	flex-basis: 40%;
+
+	/* as a flex container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+/* refers to the number of votes of choice in choiceRow */
+.choiceRow div span {
+	/* as a flex item of direction: row */
+	flex-basis: 10%;
+
+	font-weight: bold;
+	font-style: italic;
+}
+
+.deleteConfirmation {
+	/* as a flex container */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.button {
 	border: 0px;
 	box-shadow: 1px 1px 1px #56486c;
 }
@@ -115,17 +172,87 @@ li {
 	background-color: #00bfd8;
 }
 
-.cardButtons button:hover {
+.cancel {
+	background-color: #fc5f1b;
+}
+
+.large {
+	display: block;
+
+	/* center */
+	margin: auto;
+	width: 80%;
+
+	margin-top: 1.5rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+
+	font-weight: bold;
+}
+
+.cardButtons .button {
+	/* as a flex item of direction column */
+	margin: 0.8rem;
+}
+
+.button:hover {
 	animation: grow 0.1s;
 	animation-fill-mode: forwards;
 }
 
 .backdrop {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	height: 100%;
-	opacity: 0.6;
-	background-color: rgba(0,0,0,0.6)
+
+	/* centering start */
+	margin: auto;
+
+	/* center fixed horizontally */
+	left: 0px;
+	right: 0px;
+
+	/* center fixed vertically */
+	bottom: 0px;
+	top: 0px;
+	/* centering end */
+
+	opacity: 0.0;
+	background-color: #000;
+	z-index: 1;
+
+	/* animation */
+	animation: fade-in 0.35s;
+	animation-fill-mode: forwards;
+}
+
+.modal {
+	position: fixed;
+	display: block;
+
+	width: 40%;
+
+	/* centering start */
+	margin: auto;
+
+	/* center fixed horizontally */
+	left: 0px;
+	right: 0px;
+
+	/* center fixed vertically */
+	bottom: 0px;
+	top: 0px;
+	height: 40%;
+	/* centering end */
+
+	background-color: #fff;
+	border-radius: 0.3rem;
+	z-index: 2;
+
+	/* animation */
+	animation: fade-slide-in 0.35s;
+	animation-fill-mode: forwards;
+
 }
 
 @keyframes shadow {
@@ -151,3 +278,27 @@ li {
 	}
 }
 
+@keyframes fade-in {
+	0% {
+		opacity: 0.0;
+	}
+	100% {
+		opacity: 0.6;
+	}
+}
+
+@keyframes fade-slide-in {
+	0% {
+		left: -140%;
+		opacity: 0.0;
+	}
+
+	80% {
+		left: 10%;
+		opacity: 1.0
+	}
+
+	100% {
+		left: 0px;
+}
+}
