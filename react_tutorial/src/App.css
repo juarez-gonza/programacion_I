@@ -38,27 +38,35 @@ li {
 	flex-basis: auto;
 
 	margin: auto;
-
-	font-weight: bold;
 }
 
 .navbar ul {
 	/* as a flex item with direction row */
-	flex-grow: 8;
+	flex-grow: 7;
 	flex-basis: auto;
-	margin: auto;
 
 	/* as a flex container */
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-evenly;
+	align-items: center;
+
+	margin-right: 8%;
 }
 
-.navbar ul li {
+.navbar li {
 	/* as a flex item with direction row */
 	flex-shrink: 1;
-
 	text-align: center;
+}
+
+.navlink {
+	text-decoration: none;
+	color: #fff;
+}
+
+.navlinkActive {
+	text-decoration: underline;
 }
 
 .cardContainer {
@@ -69,11 +77,14 @@ li {
 	align-items: flex-start;
 
 	position: relative;
-	width: 40%;
 
 	/* centering start */
 	margin: auto;
 
+	/* centering horizontally */
+	width: 40%;
+
+	/* centering vertically */
 	top: 40%;
 	/* centering end */
 
@@ -155,6 +166,59 @@ li {
 	align-items: center;
 }
 
+.createForm {
+	display: flex;
+	flex-direction: column;
+
+	position: relative;
+	/* centering horizontally */
+	margin: auto;
+	width: 60%;
+	/* positioning vertically */
+	top: 20%;
+
+	border-color: #000;
+}
+
+.createForm legend {
+	text-align: center;
+}
+
+.createForm .questionLabel {
+	display: block;
+	margin-bottom: 0.5rem;
+
+	text-align: center;
+	font-style: italic;
+}
+
+.createForm .questionInput {
+	display: block;
+	width: 80%;
+	margin: auto;
+}
+
+.createForm .choiceInput {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+	margin: auto;
+	margin-top: 0.5rem;
+
+	animation: 0.1s fade-in;
+}
+
+.createForm .choiceInput label {
+	flex-basis: 10%;
+
+	font-style: italic;
+}
+
+.createForm .choiceInput input {
+	flex-basis: 60%;
+}
+
 .button {
 	border: 0px;
 	box-shadow: 1px 1px 1px #56486c;
@@ -194,6 +258,12 @@ li {
 	/* as a flex item of direction column */
 	margin: 0.8rem;
 }
+
+.createForm .button {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
 
 .button:hover {
 	animation: grow 0.1s;
@@ -238,13 +308,12 @@ li {
 	/* center fixed horizontally */
 	left: 0px;
 	right: 0px;
-
-	/* center fixed vertically */
-	bottom: 0px;
-	top: 0px;
-	height: 50%;
 	/* centering end */
 
+	/* position vertically */
+	top: 25%;
+
+	padding-bottom: 2rem;
 	background-color: #fff;
 	border-radius: 0.3rem;
 	z-index: 2;

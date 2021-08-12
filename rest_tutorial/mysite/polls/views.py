@@ -1,12 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-
-#from django.http import HttpResponse, HttpResponseRedirect
-#from django.http import Http404
-
-from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from django.utils import timezone
 
 from .models import Question, Choice
 from .serializers import QuestionSerializer, ChoiceSerializer
@@ -14,7 +11,7 @@ from .forms import QuestionForm, ChoiceForm
 
 # Create your views here.
 
-# ===============QUESTION STUFF===============
+######### GET #########
 @api_view(["GET"])
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
@@ -32,42 +29,29 @@ def detail(request, question_id):
             }
     return Response(res_body, status=200)
 
+######### POST #########
 @api_view(["POST"])
 def create(request):
     q_serializer = QuestionSerializer(data=request.data)
     if q_serializer.is_valid():
-        q_serializer.save()
-        return Response(q_serializer.data, status=201)
+        question = Question(
+                question_text=q_serializer.validated_data["question_text"],
+                pub_date=timezone.now()
+                )
+        question.save()
+        add_choices(question, request.data)
+        return Response(q_serializer.validated_data, status=201)
     return Response({
             "error_message": "You didn't input a proper question",
             **q_serializer.data,
     }, status=400)
 
-@api_view(["DELETE"])
-def delete(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    question.delete()
-    return Response(status=200)
+def add_choices(question, validated_data):
+    if "choices" in validated_data and len(validated_data["choices"]) > 0:
+            for c in validated_data["choices"]:
+                question.add_choice(c["choice_text"])
 
-# ===============OPTION STUFF===============
-@api_view(["POST"])
-def add_choice(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    c_serializer = ChoiceSerializer(data=request.data)
-    if c_serializer.is_valid():
-        question.add_choice(c_serializer.validated_data["choice_text"])
-        return Response(c_serializer.data, status=201)
-    return Response({
-        "choice": c_serializer.data,
-        "error_message": "That's not a valid input for a choice",
-    }, status=400)
-
-@api_view(["DELETE"])
-def delete_choice(request, choice_id):
-    choice = get_object_or_404(Choice, pk=choice_id)
-    choice.delete()
-    return Response(status=200)
-
+######### PUT #########
 @api_view(["PUT"])
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -81,3 +65,10 @@ def vote(request, question_id):
     selected_choice.save()
     c_serializer = ChoiceSerializer(selected_choice)
     return Response(c_serializer.data, status=200)
+
+######### DELETE #########
+@api_view(["DELETE"])
+def delete(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question.delete()
+    return Response(status=200)

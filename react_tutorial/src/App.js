@@ -1,137 +1,37 @@
 import './App.css';
 import React from "react";
-import { useState } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import QuestionList from "./components/QuestionList";
-import Question from "./components/Question";
-import Modal from "./layout/Modal";
-import Backdrop from "./layout/Backdrop";
 import Layout from "./layout/Layout";
 
-import EditForm from "./components/EditForm";
-import DeleteConfirmation from "./components/DeleteConfirmation";
+import MainPage from "./pages/MainPage";
+import CreateQuestion from "./pages/CreateQuestion";
 
 function App()
 {
-	/* start of dummy values */
-	let questions = [
-		{
-			question_text: "What?",
-			id: 1,
-		},
-		{
-			question_text: "Who?",
-			id: 2,
-		},
-		{
-			question_text: "What's the fastest animal alive?",
-			id: 3,
-		}
-	];
-
-	let choices = [
-		{
-			id: 1,
-			choice_text: "Don't know",
-			votes: 0,
-			question: 1,
-		},
-		{
-			id: 2,
-			choice_text: "???",
-			votes: 2,
-			question: 1,
-		}
-
-	]
-	/* end of dummy values */
-
-	let [ showModal, setShowModal] = useState(false);
-	let [ showEdit, setShowEdit ] = useState(false);
-	let [ showDelete, setShowDelete ] = useState(false);
-
-	function handleShowModal()
-	{
-		setShowModal((prevState)=> {
-			return !prevState;
-		});
-
-		setShowEdit((prevState)=> {
-			if (prevState)
-				return !prevState;
-			return prevState;
-		});
-
-		setShowDelete((prevState)=> {
-			if (prevState)
-				return !prevState;
-			return prevState;
-		});
-	}
-
-	function handleOpenEdit()
-	{
-		handleShowModal();
-		/* must call after show modal since show modal
-		 * will call setShowEdit(false) if it finds it true
-		 * in order to handle the closing logic
-		 */
-		setShowEdit(true);
-	}
-
-	function handleOpenDelete()
-	{
-		handleShowModal();
-		/* must call after show modal since show modal
-		 * will call setShowEdit(false) if it finds it true
-		 * in order to handle the closing logic
-		 */
-		setShowDelete(true);
-	}
-
-	/*
-	function handleEditSubmit()
-	{
-	}
-
-	function handleDeleteConfirmation()
-	{
-	}
-	*/
-
-	let qcomps = questions.map((q) => {
-		return (
-				<Question key={ q.id }
-				q={ q }
-				onDelete={ handleOpenDelete }
-				onEdit={ handleOpenEdit }
-				/>
-		);
-	});
-
-	let extraContent = (
-		<React.Fragment>
-		<Modal>
-			{ showDelete &&
-				<DeleteConfirmation onCancel={ handleShowModal } question={ questions[0] }/>
-			}
-			{ showEdit &&
-				<EditForm
-				question={ questions[0] }
-				choices={ choices }
-				onCancel= { handleShowModal }
-				/>
-			}
-		</Modal>
-		<Backdrop onClick={ handleShowModal } />
-		</React.Fragment>
-	);
-
+	let links = {
+		"index": "/",
+		"create": "/create",
+		"random": [
+			"https://youtu.be/4r7wHMg5Yjg",
+			"https://github.com/torvalds/linux/blob/master/Documentation/process/coding-style.rst",
+			"https://youtu.be/Ox0Kw4PjvsM",
+			"https://youtu.be/kk0feCp_MZ4",
+			"https://youtu.be/lg5WKsVnEA4",
+			"https://youtu.be/XKyy1jni4CQ",
+			"https://whydoesitsuck.com/why-does-javascript-suck/",
+			"https://whydoesitsuck.com/why-does-php-suck/",
+		],
+	};
 	return (
 		<React.Fragment>
-			<Layout/>
-			<QuestionList>{ qcomps }</QuestionList>
-			{ showModal && extraContent }
+			<BrowserRouter>
+				<Layout links={ links }/>
+				<Switch>
+					<Route path="/" exact={ true } component={ MainPage }/>
+					<Route path="/create" exact={ true } component={ CreateQuestion }/>
+				</Switch>
+			</BrowserRouter>
 		</React.Fragment>
 	);
 }
