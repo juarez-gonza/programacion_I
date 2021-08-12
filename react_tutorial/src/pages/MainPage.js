@@ -9,6 +9,7 @@ import DeleteConfirmation from "../components/DeleteConfirmation";
 
 import Modal from "../layout/Modal";
 import Backdrop from "../layout/Backdrop";
+import Spinner from "../layout/Spinner";
 
 import csrftoken from "../utils/csrf";
 
@@ -170,7 +171,6 @@ function MainPage()
 				/>
 		);
 	});
-
 	let extraContent = (
 		<React.Fragment>
 		<Modal>
@@ -189,17 +189,16 @@ function MainPage()
 				onEditSubmit={ handleEditSubmit }
 				/>
 			:
-			<h1>Loading</h1>
+				<Spinner/>
 			}
 		</Modal>
 		<Backdrop onClick={ handleShowModal } />
 		</React.Fragment>
 	);
-
 	return (
 		<React.Fragment>
 			{ pageLoading ?
-				<h1>Loading</h1>
+				<Spinner/>
 			:
 				<QuestionList>{ qcomps }</QuestionList>
 			}

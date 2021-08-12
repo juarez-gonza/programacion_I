@@ -10,9 +10,9 @@ import CreateQuestion from "./pages/CreateQuestion";
 function App()
 {
 	let links = {
-		"index": "/",
-		"create": "/create",
-		"random": [
+		index: "/",
+		create: "/create",
+		random: [
 			"https://youtu.be/4r7wHMg5Yjg",
 			"https://github.com/torvalds/linux/blob/master/Documentation/process/coding-style.rst",
 			"https://youtu.be/Ox0Kw4PjvsM",
@@ -28,8 +28,8 @@ function App()
 			<BrowserRouter>
 				<Layout links={ links }/>
 				<Switch>
-					<Route path="/" exact={ true } component={ MainPage }/>
-					<Route path="/create" exact={ true } component={ CreateQuestion }/>
+					<Route path={ links.index } exact={ true } component={ MainPage }/>
+					<Route path={ links.create } exact={ true } component={ CreateQuestion }/>
 				</Switch>
 			</BrowserRouter>
 		</React.Fragment>
