@@ -1,13 +1,27 @@
 version: "3"
 services:
-  react_app:
-    build: ./react_tutorial/
-    image: react_tutorial
-    ports:
-      - "3000:3000"
+  postgres_db:
+    image: postgres
+    volumes:
+      - drf_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=mydbuser
+      - POSTGRES_PASSWORD=mydbpass
 
   drf_app:
     build: ./drf_tutorial/
     image: drf_tutorial
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres_db
+
+  react_app:
+    build: ./react_tutorial/
+    image: react_tutorial
+    ports:
+      - "3000:3000"
+
+volumes:
+  drf_db:

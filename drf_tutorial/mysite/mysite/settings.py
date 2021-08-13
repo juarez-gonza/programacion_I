@@ -84,8 +84,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'mydbuser',
+        'PASSWORD': 'mydbpass',
+        # name of postgres service in docker_compose.yml
+        'HOST': 'postgres_db',
+        'PORT': 5432,
     }
 }
 
@@ -135,7 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ###############MANUALLY-ADDED###############
 
-# https://github.com/encode/django-rest-framework
-CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000",
-]
+# https://github.com/adamchainz/django-cors-headers
+CORS_ALLOW_ALL_ORIGINS = True
